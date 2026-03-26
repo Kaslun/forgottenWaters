@@ -1,0 +1,69 @@
+import type { CharacterDefinition } from '@/types/character';
+import { DOOMED_CONSTELLATION } from '@/data/constellations';
+
+export const DOOMED: CharacterDefinition = {
+  id: 'doomed',
+  title: 'The Doomed Pirate',
+  shortDescription: 'Has witnessed a vision of their own death.',
+  skillGrid: {
+    exploration: ['star', 'open', 'star', 'star', 'blocked', 'blocked', 'blocked'],
+    brawn: ['star', 'open', 'open', 'star', 'blocked', 'blocked', 'blocked'],
+    hunting: ['star', 'open', 'open', 'star', 'star', 'blocked', 'blocked'],
+    aim: ['star', 'star', 'blocked', 'blocked', 'blocked', 'blocked', 'blocked'],
+    swagger: ['open', 'open', 'open', 'star', 'star', 'blocked', 'blocked'],
+    navigation: ['star', 'star', 'open', 'open', 'star', 'blocked', 'blocked'],
+  },
+  constellation: DOOMED_CONSTELLATION,
+  storyBlanks: [
+    { number: 1, prompt: 'How you will die', type: 'text' },
+    { number: 2, prompt: 'Your last words', type: 'text' },
+    { number: 3, prompt: 'Something you want to accomplish before dying', type: 'text' },
+    { number: 4, prompt: 'The pirate name of another player', type: 'player_name' },
+    { number: 5, prompt: 'The number of days you have left', type: 'text' },
+  ],
+  backstory: `I saw it. Clear as day, in a vision that shook me to my very core. I saw my own death. I will die by {1}. My last words will be "{2}." And I have exactly {5} days to live.
+
+You might think knowin' how and when you'll die would be terrifyin', and you'd be right — it is. But it's also... freein', in a strange way. When you know your time is limited, you stop worryin' about the small stuff. Who cares if the food is bad? Who cares if {4} keeps borrowin' your things without askin'? I'm DYING!
+
+I've made a list of things I want to do before I go. At the top is: {3}. I figure if I'm goin' to die anyway, I might as well die havin' accomplished somethin' worthwhile. The pirate life gives me the best chance of checkin' items off my list, seein' as how pirates go to places most sane people avoid.
+
+The crew knows about my vision. Most of 'em avoid me, thinkin' death might be contagious. {4} is the only one who treats me normally, though they keep countin' the days on their fingers when they think I'm not lookin'. I appreciate the concern, even if it's morbid.`,
+  events: [
+    {
+      narrative: `I almost died today! But not by {1}, so it doesn't count! Ha! Take THAT, fate! {4} pulled me to safety just in time. I thanked them by crossing "survive a near-death experience" off my list. Only {5} things left on it. Well, {5} minus a few.`,
+      effect: 'Re-roll +2. Discontent -1.',
+    },
+    {
+      narrative: `I wrote my will today. I'm leaving everything to {4}, mostly because they're the only one who hasn't started measuring me for a coffin. I also wrote a heartfelt letter to be opened after my death. It says "{2}" and nothing else. I think that says it all.`,
+      effect: 'Gain 1 skill of your choice.',
+    },
+    {
+      narrative: `I did it! I finally managed to {3}! Well, partially. It was messier than I expected, and {4} had to help, but it counts! I'm crossing it off the list! The vision showed my death, but it didn't show me this moment, and this moment is MINE.`,
+      effect: 'Infamy +3. Re-roll +1.',
+    },
+    {
+      narrative: `Found this in a shipwreck. The previous owner clearly didn't need it anymore, on account of being dead. I wonder if they also saw their death coming? I'll put it to better use than they did, at least for the next {5} days.`,
+      effect: 'Retrieve card 65 Doom Compass from the story deck.',
+    },
+    {
+      narrative: `{4} threw me a "not dead yet" party today. The crew decorated the ship with black ribbons and served cake shaped like a coffin. It was the most thoughtful and most morbid thing anyone has ever done for me. I cried. Then I blew out the candles and made a wish. I won't tell you what I wished for, but it rhymes with "not dying by {1}."`,
+      effect: 'Crew +2. Discontent -2.',
+    },
+  ],
+  endings: {
+    bad: {
+      threshold: '≤3',
+      text: `The {5} days pass, and on the final day, you brace yourself for death by {1}. You wait all day. Nothing happens. Then, just as you begin to relax, thinking the vision was wrong, you trip over a loose plank on the deck. Your last words, as predicted, are "{2}," though you say them less heroically than you imagined — more like a yelp. The cause of death, however, is NOT {1}. It's the loose plank. The vision was wrong about the method, but right about the timing. {4} delivers a moving eulogy that focuses more on your paranoia than your accomplishments, which is fair.`,
+    },
+    good: {
+      threshold: '4',
+      text: `The {5} days come and go, and you do not die. Not by {1}, not by anything. The vision, it seems, was wrong. Or maybe your actions changed the course of fate. Either way, you spend several confused but joyous weeks coming to terms with the fact that you are going to live. You check everything off your list, including {3}, and celebrate with {4}, who is equally relieved. You continue pirating for many more years, though you never shake the habit of counting your days. You become known as "the pirate who cheated death," and you wear the title with pride. Your last words, when they eventually come many, many years later, are NOT "{2}." They are: "I told you I wasn't going to die."`,
+    },
+    legendary: {
+      threshold: '5',
+      text: `On the {5}th day, death comes for you in the form of {1}, exactly as the vision foretold. But instead of fear, you feel peace. You've accomplished everything on your list. You've lived more in these {5} days than most people live in a lifetime. You face your end with a smile, and your actual last words are "{2}" — delivered with the perfect dramatic timing you always knew you had. {4} is at your side, and they promise to tell your story.
+
+But then something unexpected happens. You wake up. Death, it turns out, was so impressed by your courage and your refusal to waste a single moment that it gives you a second chance. You are alive, against all odds, with a new vision: a long, full life ahead of you. You emerge from the experience transformed, and spend the rest of your years living with a fearlessness that inspires everyone around you. Your "not dead yet" parties become an annual tradition, and {4} never misses one.`,
+    },
+  },
+};

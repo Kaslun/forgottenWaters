@@ -1,0 +1,67 @@
+import type { CharacterDefinition } from '@/types/character';
+import { THESPIAN_CONSTELLATION } from '@/data/constellations';
+
+export const THESPIAN: CharacterDefinition = {
+  id: 'thespian',
+  title: 'The Thespian Pirate',
+  shortDescription: 'A court jester seeking new stories for their patron.',
+  skillGrid: {
+    exploration: ['star', 'open', 'open', 'star', 'blocked', 'blocked', 'blocked'],
+    brawn: ['star', 'open', 'blocked', 'blocked', 'blocked', 'blocked', 'blocked'],
+    hunting: ['star', 'open', 'open', 'star', 'star', 'blocked', 'blocked'],
+    aim: ['star', 'star', 'open', 'open', 'blocked', 'blocked', 'blocked'],
+    swagger: ['star', 'star', 'open', 'open', 'star', 'star', 'star'],
+    navigation: ['star', 'open', 'blocked', 'blocked', 'blocked', 'blocked', 'blocked'],
+  },
+  constellation: THESPIAN_CONSTELLATION,
+  storyBlanks: [
+    { number: 1, prompt: 'A title for a play', type: 'text' },
+    { number: 2, prompt: 'The pirate name of another player', type: 'player_name' },
+    { number: 3, prompt: 'A dramatic exclamation', type: 'text' },
+    { number: 4, prompt: 'The name of your patron', type: 'text' },
+    { number: 5, prompt: 'A type of performance', type: 'text' },
+  ],
+  backstory: `All the world's a stage, and I intend to perform on every inch of it! I am a thespian, a player, an artist of the highest caliber! I was court jester to the great {4}, performing my legendary one-person show "{1}" to standing ovations every evening. Life was grand! The finest costumes, the best audiences, and all the grapes I could eat.
+
+But then {4} grew bored. "I've seen all your shows," they said. "Bring me a new story — a REAL one — or I'll find a new jester." A new jester?! No one replaces ME! So I set out to find the greatest story ever told, and where better to find drama, comedy, and tragedy than aboard a pirate ship?
+
+These pirates are PERFECT material! The captain is a brooding antihero, the first mate is comic relief, and {2} — oh, {2} is my muse! Such raw, unpolished drama in their every action! I've been secretly writing a play about them called "{1}: Part 2," and it is going to be MAGNIFICENT.
+
+Of course, the crew thinks I'm a nuisance. I keep breaking into soliloquies at inappropriate times. Last week I performed a dramatic {5} during a battle, and the captain threatened to use me as a cannonball. But art requires sacrifice! "{3}!" I cried, and leapt back into the fray.`,
+  events: [
+    {
+      narrative: `I performed my {5} for the crew tonight, and for the first time, they actually LIKED it! Well, most of them. {2} said it was "the least annoying thing you've done all week," which from them is practically a standing ovation. I took seven bows.`,
+      effect: 'Discontent -2. Infamy +1.',
+    },
+    {
+      narrative: `I found a trove of ancient scripts in a sunken theater on the last island! Real dramatic works from a lost civilization! This is the find of a lifetime! One of them is a tragedy about a pirate who — wait, no spoilers. {4} is going to LOVE this.`,
+      effect: 'Retrieve card 82 Ancient Script Collection from the story deck.',
+    },
+    {
+      narrative: `During a tense negotiation with a rival crew, I stepped in and delivered an improvised speech so moving, so dramatic, so overwhelmingly {3}, that the rivals were brought to tears and immediately agreed to our terms. The captain was stunned. {2} actually applauded. I have never felt more alive!`,
+      effect: 'Infamy +3. Gain 1 skill of your choice.',
+    },
+    {
+      narrative: `I've been coaching {2} in the dramatic arts, and they're actually showing improvement! Their first attempt at a {5} was rough, but after a few sessions, they delivered a soliloquy that would bring {4} to tears. I'm so proud. I'm creating a monster, and I love it.`,
+      effect: 'Crew +1. Re-roll +1.',
+    },
+    {
+      narrative: `I've completed the first draft of my masterwork: "{1}: The Pirate Saga." It tells the story of our adventures, with some artistic embellishment. {2}'s character is particularly compelling — a complex antihero with a heart of gold and a habit of doing ridiculous things. When I read it aloud to the crew, there was a long silence. Then the captain said, "That's... actually pretty good." Best review I've ever received.`,
+      effect: 'Re-roll +3. Infamy +2.',
+    },
+  ],
+  endings: {
+    bad: {
+      threshold: '≤3',
+      text: `You return to {4}'s court with your play, but the performance goes disastrously wrong. You trip over your cape during the opening {5}, knock over the set pieces during the dramatic {3} scene, and {4}'s cat somehow gets on stage and steals every scene. {4} is not impressed. "I sent you to find a great story," they say, "and you brought me a farce." You are replaced by a juggling monkey, which the court agrees is a significant upgrade. You spend the rest of your days performing {5}s in taverns for tip money, always opening with "{3}!" to increasingly smaller audiences.`,
+    },
+    good: {
+      threshold: '4',
+      text: `You return to {4}'s court and debut "{1}: The Pirate Saga" to a packed house. The audience is captivated. They laugh, they cry, they gasp at the dramatic {3} in Act Three. {4} rises to their feet in thunderous applause. "THIS is what I've been waiting for!" they declare. You are promoted to Grand Court Thespian, with your own theater and a company of actors. {2} makes a special appearance on opening night, though they're uncomfortable in costume. Your play runs for three hundred performances, and you write four sequels, each more dramatic than the last. Art, at last, has triumphed.`,
+    },
+    legendary: {
+      threshold: '5',
+      text: `"{1}: The Pirate Saga" doesn't just impress {4} — it takes the entire WORLD by storm. Theaters across every kingdom perform your play, and you become the most celebrated playwright in history. Your signature exclamation, "{3}!", becomes a cultural phenomenon. {2}, immortalized as the lead character, becomes famous despite their best efforts to remain anonymous. You build the Grand Theater of {4}, the largest performance venue ever constructed, where the world's greatest artists come to perform. On opening night, you take the stage one final time. The audience holds its breath. You deliver a {5} so magnificent, so transcendent, that it moves the gods themselves to weep. "All the world's a stage," you say to the roaring crowd, "and I have played my part." You take your final bow to a standing ovation that lasts for three hours.`,
+    },
+  },
+};

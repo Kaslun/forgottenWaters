@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sat: env(safe-area-inset-top);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
+  --sar: env(safe-area-inset-right);
+  --gold-400: #e8c55a;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.scroll-container {
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+}

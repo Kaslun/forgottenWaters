@@ -1,0 +1,61 @@
+import type { CharacterDefinition } from '@/types/character';
+import { SEEKER_CONSTELLATION } from '@/data/constellations';
+
+export const SEEKER: CharacterDefinition = {
+  id: 'seeker',
+  title: 'The Seeker Pirate',
+  shortDescription: 'An explorer who hates pirates but loves discovery.',
+  skillGrid: {
+    exploration: ['star', 'star', 'open', 'open', 'open', 'star', 'star'],
+    brawn: ['star', 'star', 'blocked', 'blocked', 'blocked', 'blocked', 'blocked'],
+    hunting: ['star', 'open', 'open', 'star', 'open', 'blocked', 'blocked'],
+    aim: ['star', 'open', 'open', 'open', 'blocked', 'blocked', 'blocked'],
+    swagger: ['open', 'open', 'open', 'star', 'star', 'blocked', 'blocked'],
+    navigation: ['star', 'open', 'open', 'star', 'star', 'blocked', 'blocked'],
+  },
+  constellation: SEEKER_CONSTELLATION,
+  storyBlanks: [
+    { number: 1, prompt: 'A profession that involves travel', type: 'text' },
+    { number: 2, prompt: 'A dumb name', type: 'text' },
+    { number: 3, prompt: 'An animal', type: 'text' },
+    { number: 4, prompt: "A collector's item", type: 'text' },
+    { number: 5, prompt: 'The pirate name of another player', type: 'player_name' },
+  ],
+  backstory: `Exploring the world has always been my passion. In my youth I was a(n) {1} and volunteered for every exploratory expedition I could find. After a time I found myself aboard the ship of Captain {2}, the fearless royal explorer who became my mentor. I learned much on his vessel as we travelled the seas, but eventually luck ran out, and our vessel was sunk by a giant {3}. The captain perished, and it was time to find a new vessel to sign up with. When I heard a pirate captain was going to sail past the Ocean's Edge, I realized the world was about to become an even more interesting place, and pirates might very well hold the key to the thrills of exploration. Now I find myself on a pirate ship and am forced to confront the fact that I hate pirates. I hate their unwashed bodies, their complete disregard for the King's Tongue, not to mention their ridiculous obsession with {4}(s). Their very presence soils what should be a transformative journey of self-discovery. Take {5}, for example. Who could stand to be around this lout for even five minutes? Gods-damned pirates.`,
+  events: [
+    {
+      narrative: `I squirmed as it slid down my mouth. It wasn't the worst thing I've eaten, but the thought of eating a live, miniature {3} made my stomach do cartwheels. Pirates sure do have quite an expansive array of things they qualify as food.`,
+      effect: 'Supplies +3.',
+    },
+    {
+      narrative: `I buried the {4} just as they told me to, marking the spot with an 'X' so I'd remember where. I'm not quite sure what the point of it was. It doesn't seem to make much sense to collect it, only to throw it in a hole on a random island I doubt I'll ever visit again. Oh well, it doesn't matter much anyway. Numerous possessions will likely get me stabbed or robbed on this ship.`,
+      effect: 'Gain 1 skill of your choice. Re-roll +1.',
+    },
+    {
+      narrative: `I finally found something that seems well-suited for me. It reminds me of the one Captain {2} used to have on his ship. Oh how I miss being with him. Him and his big, strong hands...`,
+      effect: 'Retrieve card 25 Superior Spyglass from the story deck.',
+    },
+    {
+      narrative: `Maybe if I trade this to {5} they will agree to move to another hammock. I am so tired of them stinking up the place. It's bad enough that most of the crew doesn't bathe.`,
+      effect: 'Treasure +1 OR discontent -2.',
+    },
+    {
+      narrative: `I seem to have attracted two new pirate fledglings. They think it's "cool" that I still have all of my teeth - a rare thing among the rest of the riff-raff on this vessel. Only the best for this ship, I suppose.`,
+      effect: 'Crew +2.',
+    },
+  ],
+  endings: {
+    bad: {
+      threshold: '≤3 constellation events',
+      text: `You knew you would quit your position aboard the ship long before you finally do. When your adventure concludes, all you have left is a smelly, disgusting {4} to show for it. You immediately trade it away to get passage back to your childhood home. The life that follows is humdrum and predictable, and though devoid of pirates and their company, so too is it devoid of meaning. You spend your later years wistfully staring out at the ocean and wondering what might have been. When you eventually perish, following a protracted battle with {3} brain, you leave behind a legacy of bitterness and wasted potential. Your family buries you next to the grave of Captain {2}, having known all along of your scandalous, secret affair.`,
+    },
+    good: {
+      threshold: '4 constellation events',
+      text: `All your life you'd been searching for something. The pirate life finally revealed what it was. After your time on the ship is up, you sell your {4} and plan an expedition with a fledgling crew of ex-{1}(s) to a mysterious island in the southern seas of Sunset. In the heart of a jungle there, you and your team find a mysterious and long-lost temple. As you enter the chamber within, your eyes fill with the glowing light of a magnificent, gigantic crystal. It fills your soul with contentment and satisfaction. This is what you've always been meant to find! The crystal consumes your thoughts even as your team screams out in terror and tries to flee the temple. Slowly, the chamber fills with {3}(s) and the outer doors seal themselves. As the others struggle to escape, you laugh with abandon, the secrets of the cosmos finally revealed to you.`,
+    },
+    legendary: {
+      threshold: '5 constellation events',
+      text: `While the pirating life proved to be a bit too much for you, it awakened your wanderlust like nothing before. After your time on the ship you decide to collect the maps, journals, and other adventurer's ephemera that Captain {2} had left behind to try to follow in his footsteps. You find great fulfillment in continuing his life's work. Eventually it leads you to build a library in his name where pirates and explorers of the world at large can sell and share hand-drawn maps of newly discovered locations in Sunset. This provides a greatly needed service to the community, and gives you access to the most interesting locations the world has to offer. You even develop a great friendship with {5}, whose smell you eventually grow quite fond of.`,
+    },
+  },
+};

@@ -1,0 +1,149 @@
+{
+  "data\\characters\\index.ts -> ./alchemist": {
+    "id": 8268,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/501.aa44d8ee9385629a.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./allSeeing": {
+    "id": 3739,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/739.c163897c2f7b4ad4.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./assassin": {
+    "id": 3370,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/370.46b99b3faa8bd3b0.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./cannonwright": {
+    "id": 2381,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/381.b9852c3f2c34366f.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./culinary": {
+    "id": 4090,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/90.1ed0a2ee1e2169b0.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./debater": {
+    "id": 2604,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/604.580c9b01603fc475.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./doomed": {
+    "id": 7191,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/146.7c1f5fa3bfe04bde.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./duelist": {
+    "id": 1554,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/554.1f0308f721854d4c.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./goldCoat": {
+    "id": 7770,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/770.88bcaaaf0c0d0d5c.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./grifter": {
+    "id": 2538,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/538.922511e43759f6ca.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./lovesick": {
+    "id": 6557,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/557.d59b5aa26d6e6970.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./orphan": {
+    "id": 7582,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/582.09e9d592153e6c03.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./parent": {
+    "id": 7741,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/741.5519253371d99fcc.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./safety": {
+    "id": 1807,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/807.a0d5da4f982a9d68.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./seaSerpent": {
+    "id": 207,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/207.9138b22fba6012e3.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./seasick": {
+    "id": 2788,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/788.0c5d48e0aac8ca65.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./seeker": {
+    "id": 2098,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/98.621b0b43b67e31eb.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./skeleton": {
+    "id": 1346,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/346.f4adcf6733a4c5d3.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./survivor": {
+    "id": 1851,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/851.90bcf9a23ebb53c6.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./thespian": {
+    "id": 5606,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/606.5fe979a98a2cdbe1.js"
+    ]
+  },
+  "data\\characters\\index.ts -> ./trickster": {
+    "id": 9618,
+    "files": [
+      "static/chunks/463-a11b60d3aec04c15.js",
+      "static/chunks/618.3f208b2146bdc548.js"
+    ]
+  }
+}
