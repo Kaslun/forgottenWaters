@@ -3,8 +3,11 @@
 import { useState, useCallback, useRef } from 'react';
 import { supabase } from '@/lib/supabase';
 import { generatePirateName } from '@/data/nameGenerator';
+import { CHARACTER_SUMMARIES } from '@/data/characters/summaries';
+import { ALL_ROLE_IDS } from '@/data/roles';
 import { Button } from '@/components/ui/Button';
 import { useToast } from '@/components/ui/ToastProvider';
+import type { Player } from '@/types/game';
 
 const FILLER_NAMES = [
   'Testbeard', 'Debugger Dan', 'Captain Placeholder',
@@ -17,11 +20,23 @@ const TAP_WINDOW_MS = 2000;
 interface DevToolsProps {
   gameId: string;
   currentPlayerCount: number;
+  players?: Player[];
+  gameStatus?: string;
 }
 
-export function DevTools({ gameId, currentPlayerCount }: DevToolsProps) {
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+export function DevTools({ gameId, currentPlayerCount, players, gameStatus }: DevToolsProps) {
   const { showToast } = useToast();
   const [adding, setAdding] = useState(false);
+  const [readying, setReadying] = useState(false);
   const [unlocked, setUnlocked] = useState(process.env.NODE_ENV !== 'production');
   const [expanded, setExpanded] = useState(false);
   const tapsRef = useRef<number[]>([]);
@@ -95,9 +110,129 @@ export function DevTools({ gameId, currentPlayerCount }: DevToolsProps) {
     addFillerPlayer(needed);
   }, [currentPlayerCount, addFillerPlayer, showToast]);
 
+  const readyUpBots = useCallback(async () => {
+    if (!players || players.length === 0) return;
+
+    setReadying(true);
+    try {
+      const botsNeedingSetup = players.filter(
+        (p) => !p.is_host && (!p.character_type || p.ship_roles.length === 0)
+      );
+
+      if (botsNeedingSetup.length === 0) {
+        showToast('All bots are already ready', 'info');
+        setReadying(false);
+        return;
+      }
+
+      const takenCharacters = new Set(
+        players.filter((p) => p.character_type).map((p) => p.character_type!)
+      );
+      const availableCharacters = shuffle(
+        CHARACTER_SUMMARIES.filter((c) => !takenCharacters.has(c.id)).map((c) => c.id)
+      );
+
+      const takenRoles = new Set(players.flatMap((p) => p.ship_roles));
+      const unassignedRoles = shuffle(ALL_ROLE_IDS.filter((r) => !takenRoles.has(r)));
+
+      let charIdx = 0;
+      let roleIdx = 0;
+
+      for (const bot of botsNeedingSetup) {
+        const updates: Record<string, unknown> = {};
+
+        if (!bot.character_type && charIdx < availableCharacters.length) {
+          updates.character_type = availableCharacters[charIdx++];
+        }
+
+        if (!bot.pirate_name) {
+          updates.pirate_name = generatePirateName();
+        }
+
+        if (bot.ship_roles.length === 0 && roleIdx < unassignedRoles.length) {
+          updates.ship_roles = [unassignedRoles[roleIdx++]];
+        }
+
+        if (Object.keys(updates).length > 0) {
+          await supabase.from('players').update(updates).eq('id', bot.id);
+        }
+
+        const characterId = (updates.character_type as string) || bot.character_type;
+        if (characterId) {
+          const { data: existingSheet } = await supabase
+            .from('character_sheets')
+            .select('id')
+            .eq('player_id', bot.id)
+            .maybeSingle();
+
+          if (!existingSheet) {
+            await supabase.from('character_sheets').insert({
+              player_id: bot.id,
+              game_id: gameId,
+              story_blanks: { '1': 'test', '2': 'test', '3': 'test' },
+            });
+          }
+        }
+      }
+
+      // Distribute any remaining unassigned roles round-robin across all players
+      const allPlayersAfter = players.map((p) => ({
+        ...p,
+        ship_roles: [...p.ship_roles],
+      }));
+      // Apply the roles we just assigned above
+      for (const bot of botsNeedingSetup) {
+        const ap = allPlayersAfter.find((p) => p.id === bot.id);
+        if (ap && ap.ship_roles.length === 0) {
+          // Already assigned one role above; reflect it
+          const assigned = unassignedRoles.find((_, idx) => {
+            const b = botsNeedingSetup.indexOf(bot);
+            return idx === b;
+          });
+          if (assigned) ap.ship_roles = [assigned];
+        }
+      }
+
+      const stillUnassigned = ALL_ROLE_IDS.filter(
+        (r) => !allPlayersAfter.some((p) => p.ship_roles.includes(r))
+      );
+
+      if (stillUnassigned.length > 0) {
+        const nonHostPlayers = allPlayersAfter.filter((p) => !p.is_host);
+        let rIdx = 0;
+        for (const role of stillUnassigned) {
+          const target = nonHostPlayers[rIdx % nonHostPlayers.length];
+          target.ship_roles.push(role);
+          rIdx++;
+        }
+
+        for (const p of nonHostPlayers) {
+          const original = players.find((op) => op.id === p.id);
+          if (original && p.ship_roles.length !== original.ship_roles.length) {
+            await supabase
+              .from('players')
+              .update({ ship_roles: p.ship_roles })
+              .eq('id', p.id);
+          }
+        }
+      }
+
+      showToast(`${botsNeedingSetup.length} bot(s) readied up`, 'success');
+    } catch (err) {
+      showToast('Failed to ready bots', 'error');
+      console.error(err);
+    } finally {
+      setReadying(false);
+    }
+  }, [players, gameId, showToast]);
+
+  const isSetupPhase = gameStatus === 'setup';
+  const hasBotsToReady = players?.some(
+    (p) => !p.is_host && (!p.character_type || p.ship_roles.length === 0)
+  );
+
   return (
     <>
-      {/* Invisible tap target — bottom-right corner, 5 taps to unlock */}
       {!unlocked && (
         <button
           onClick={handleSecretTap}
@@ -131,35 +266,56 @@ export function DevTools({ gameId, currentPlayerCount }: DevToolsProps) {
                   ✕
                 </button>
               </div>
-              <div className="flex gap-2">
+
+              {!isSetupPhase && (
+                <div className="flex gap-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => addFillerPlayer(1)}
+                    disabled={adding || currentPlayerCount >= 7}
+                    className="flex-1 text-xs"
+                  >
+                    +1
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={fillToMinimum}
+                    disabled={adding || currentPlayerCount >= 3}
+                    className="flex-1 text-xs"
+                  >
+                    Fill to 3
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={fillToFull}
+                    disabled={adding || currentPlayerCount >= 7}
+                    className="flex-1 text-xs"
+                  >
+                    Fill to 7
+                  </Button>
+                </div>
+              )}
+
+              {isSetupPhase && hasBotsToReady && (
                 <Button
-                  variant="ghost"
+                  variant="primary"
                   size="sm"
-                  onClick={() => addFillerPlayer(1)}
-                  disabled={adding || currentPlayerCount >= 7}
-                  className="flex-1 text-xs"
+                  onClick={readyUpBots}
+                  disabled={readying}
+                  className="w-full text-xs"
                 >
-                  +1
+                  {readying ? 'Setting up bots...' : 'Ready Up All Bots'}
                 </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={fillToMinimum}
-                  disabled={adding || currentPlayerCount >= 3}
-                  className="flex-1 text-xs"
-                >
-                  Fill to 3
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={fillToFull}
-                  disabled={adding || currentPlayerCount >= 7}
-                  className="flex-1 text-xs"
-                >
-                  Fill to 7
-                </Button>
-              </div>
+              )}
+
+              {isSetupPhase && !hasBotsToReady && (
+                <p className="text-xs font-mono text-teal-400 text-center">
+                  All bots are ready
+                </p>
+              )}
             </div>
           )}
         </div>

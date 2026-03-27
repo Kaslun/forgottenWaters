@@ -202,7 +202,7 @@ function JoinContent() {
 
   if (error) {
     return (
-      <div className="min-h-[100dvh] bg-navy-900 flex flex-col items-center justify-center px-6">
+      <div className="h-[100dvh] bg-navy-900 flex flex-col items-center justify-center px-6 overflow-y-auto">
         <ErrorState
           {...error}
           action={{ label: 'Try Again', onClick: () => setError(null) }}
@@ -213,7 +213,7 @@ function JoinContent() {
 
   if (disconnectedPlayers) {
     return (
-      <div className="min-h-[100dvh] bg-navy-900 flex flex-col items-center justify-center px-6">
+      <div className="h-[100dvh] bg-navy-900 flex flex-col items-center justify-center px-6 overflow-y-auto">
         <div className="w-full max-w-md">
           <IdentityPicker
             disconnectedPlayers={disconnectedPlayers}
@@ -229,9 +229,10 @@ function JoinContent() {
   }
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-navy-900 px-6 py-10">
+    <div className="relative flex h-[100dvh] flex-col bg-navy-900">
       <div className="absolute top-1/4 left-1/2 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-gold-500/[0.03] blur-[100px] pointer-events-none" />
-      <div className="relative w-full max-w-md space-y-8">
+      <div className="relative flex-1 overflow-y-auto px-6 py-10">
+      <div className="w-full max-w-md mx-auto space-y-8">
         <header className="rounded-2xl px-4 py-5 text-center backdrop-blur-md bg-surface-low/80">
           <h1 className="font-pirata text-3xl text-gold-400">Join a Crew</h1>
           <p className="mt-1 font-body text-sm text-parchment-400">
@@ -290,6 +291,7 @@ function JoinContent() {
         >
           ← Back
         </button>
+      </div>
       </div>
     </div>
   );

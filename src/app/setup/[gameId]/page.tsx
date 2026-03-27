@@ -15,6 +15,7 @@ import { PirateNameGenerator } from '@/components/setup/PirateNameGenerator';
 import { CharacterPicker } from '@/components/setup/CharacterPicker';
 import { RolePicker } from '@/components/setup/RolePicker';
 import { StoryBlanksSetup } from '@/components/setup/StoryBlanksSetup';
+import { DevTools } from '@/components/dev/DevTools';
 import { getCharacterDefinition } from '@/data/characters';
 import { ALL_ROLE_IDS, SHIP_ROLES } from '@/data/roles';
 import type { CharacterDefinition, SkillGrid } from '@/types/character';
@@ -275,8 +276,8 @@ export default function SetupPage({
   }
 
   return (
-    <div className="min-h-[100dvh] bg-navy-900 flex flex-col">
-      <header className="px-4 pt-[env(safe-area-inset-top,16px)] pb-3 bg-navy-800 border-b border-gold-700/20">
+    <div className="h-[100dvh] bg-navy-900 flex flex-col">
+      <header className="px-4 pt-[env(safe-area-inset-top,16px)] pb-3 bg-surface-low/80 backdrop-blur-md flex-shrink-0">
         <h1 className="font-pirata text-xl text-gold-400 text-center mb-3">
           Prepare for Voyage
         </h1>
@@ -506,6 +507,13 @@ export default function SetupPage({
           </div>
         )}
       </main>
+
+      <DevTools
+        gameId={gameId}
+        currentPlayerCount={players.length}
+        players={players}
+        gameStatus={game.status}
+      />
     </div>
   );
 }

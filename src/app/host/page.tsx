@@ -107,9 +107,10 @@ export default function HostPage() {
   }
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-[100dvh] overflow-hidden bg-navy-900 px-6 py-10">
+    <div className="relative flex flex-col h-[100dvh] bg-navy-900">
       <div className="absolute top-1/4 left-1/2 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-gold-500/[0.03] blur-[100px] pointer-events-none" />
-      <div className="relative w-full max-w-sm space-y-6">
+      <div className="relative flex-1 overflow-y-auto px-6 py-10">
+      <div className="w-full max-w-sm mx-auto space-y-6">
         <header className="space-y-3 rounded-2xl px-4 py-4 backdrop-blur-md bg-surface-low/80">
           <button
             type="button"
@@ -178,6 +179,7 @@ export default function HostPage() {
             {submitting ? 'Creating Voyage…' : 'Set Sail ⚓'}
           </Button>
         </form>
+      </div>
       </div>
     </div>
   );

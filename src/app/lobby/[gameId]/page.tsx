@@ -129,7 +129,7 @@ export default function LobbyPage({
   const canStart = connectedPlayers.length >= MIN_PLAYERS;
 
   return (
-    <div className="min-h-[100dvh] bg-navy-900 flex flex-col">
+    <div className="h-[100dvh] bg-navy-900 flex flex-col">
       <header className="px-4 pt-[env(safe-area-inset-top,16px)] pb-3 bg-surface-low/80 backdrop-blur-md">
         <h1 className="font-pirata text-2xl text-gold-400 text-center">
           Gathering the Crew
@@ -191,7 +191,7 @@ export default function LobbyPage({
           </div>
         )}
 
-        <DevTools gameId={gameId} currentPlayerCount={players.length} />
+        <DevTools gameId={gameId} currentPlayerCount={players.length} players={players} gameStatus={game.status} />
       </main>
     </div>
   );
