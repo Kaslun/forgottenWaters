@@ -1,1 +1,1 @@
-{"/_not-found/page":"/_not-found","/join/page":"/join","/lobby/[gameId]/page":"/lobby/[gameId]","/game/[gameId]/page":"/game/[gameId]","/setup/[gameId]/page":"/setup/[gameId]","/host/page":"/host","/page":"/"}
+{"/_not-found/page":"/_not-found","/game/[gameId]/page":"/game/[gameId]","/page":"/","/host/page":"/host","/setup/[gameId]/page":"/setup/[gameId]","/join/page":"/join","/lobby/[gameId]/page":"/lobby/[gameId]"}

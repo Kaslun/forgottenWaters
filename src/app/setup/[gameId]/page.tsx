@@ -33,9 +33,9 @@ const STEP_LABELS: Record<SetupStep, string> = {
 export default function SetupPage({
   params,
 }: {
-  params: Promise<{ gameId: string }>;
+  params: { gameId: string };
 }) {
-  const { gameId } = React.use(params);
+  const { gameId } = params;
   const router = useRouter();
   const { showToast } = useToast();
 

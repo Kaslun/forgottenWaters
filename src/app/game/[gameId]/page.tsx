@@ -35,9 +35,9 @@ const ONBOARDING_KEY = 'fw_seen_sheet_tip';
 export default function GamePage({
   params,
 }: {
-  params: Promise<{ gameId: string }>;
+  params: { gameId: string };
 }) {
-  const { gameId } = React.use(params);
+  const { gameId } = params;
   const router = useRouter();
   const { showToast } = useToast();
   const connectionStatus = useConnectionStatus();

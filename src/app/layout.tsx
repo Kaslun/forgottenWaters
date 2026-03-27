@@ -21,10 +21,10 @@ export const metadata: Metadata = {
   title: 'Forgotten Waters Companion',
   description: 'Digital character sheet companion for the Forgotten Waters board game',
   manifest: '/manifest.json',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'black-translucent',
-    title: 'FW Companion',
+  other: {
+    'mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'black-translucent',
+    'apple-mobile-web-app-title': 'FW Companion',
   },
 };
 

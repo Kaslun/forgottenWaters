@@ -20,9 +20,9 @@ const MIN_PLAYERS = 3;
 export default function LobbyPage({
   params,
 }: {
-  params: Promise<{ gameId: string }>;
+  params: { gameId: string };
 }) {
-  const { gameId } = React.use(params);
+  const { gameId } = params;
   const router = useRouter();
   const { showToast } = useToast();
 

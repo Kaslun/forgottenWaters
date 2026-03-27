@@ -1,9 +1,9 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/join/page": "app/join/page.js",
-  "/lobby/[gameId]/page": "app/lobby/[gameId]/page.js",
   "/game/[gameId]/page": "app/game/[gameId]/page.js",
-  "/setup/[gameId]/page": "app/setup/[gameId]/page.js",
+  "/page": "app/page.js",
   "/host/page": "app/host/page.js",
-  "/page": "app/page.js"
+  "/setup/[gameId]/page": "app/setup/[gameId]/page.js",
+  "/join/page": "app/join/page.js",
+  "/lobby/[gameId]/page": "app/lobby/[gameId]/page.js"
 }
