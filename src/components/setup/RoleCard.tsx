@@ -48,6 +48,17 @@ export function RoleCard({ role, isAssigned, assignedTo, isMine, onClaim }: Role
           Claim
         </Button>
       )}
+
+      {isMine && (
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onClaim}
+          className="flex-shrink-0 text-parchment-500"
+        >
+          Drop
+        </Button>
+      )}
     </Card>
   );
 }

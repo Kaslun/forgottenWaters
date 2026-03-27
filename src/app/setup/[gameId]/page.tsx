@@ -17,6 +17,7 @@ import { RolePicker } from '@/components/setup/RolePicker';
 import { StoryBlanksSetup } from '@/components/setup/StoryBlanksSetup';
 import { DevTools } from '@/components/dev/DevTools';
 import { getCharacterDefinition } from '@/data/characters';
+import { CHARACTER_SUMMARIES } from '@/data/characters/summaries';
 import { ALL_ROLE_IDS, SHIP_ROLES } from '@/data/roles';
 import type { CharacterDefinition, SkillGrid } from '@/types/character';
 
@@ -106,6 +107,26 @@ export default function SetupPage({
       setStep('character');
     }
   }, [currentPlayer?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Preload all skill grids when entering character selection
+  useEffect(() => {
+    if (step !== 'character') return;
+    let cancelled = false;
+
+    Promise.all(
+      CHARACTER_SUMMARIES.map(async (c) => {
+        const def = await getCharacterDefinition(c.id);
+        return { id: def.id, grid: def.skillGrid };
+      })
+    ).then((results) => {
+      if (cancelled) return;
+      const grids: Record<string, SkillGrid> = {};
+      for (const r of results) grids[r.id] = r.grid;
+      setCharacterSkillGrids((prev) => ({ ...prev, ...grids }));
+    });
+
+    return () => { cancelled = true; };
+  }, [step]);
 
   // Load character definition when character_type is set
   useEffect(() => {
