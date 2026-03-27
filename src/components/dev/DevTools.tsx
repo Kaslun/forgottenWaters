@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { supabase } from '@/lib/supabase';
 import { generatePirateName } from '@/data/nameGenerator';
 import { Button } from '@/components/ui/Button';
@@ -11,6 +11,9 @@ const FILLER_NAMES = [
   'Salty Tester', 'Mockdata Mary', 'Pixel Pete',
 ];
 
+const TAP_THRESHOLD = 5;
+const TAP_WINDOW_MS = 2000;
+
 interface DevToolsProps {
   gameId: string;
   currentPlayerCount: number;
@@ -19,7 +22,22 @@ interface DevToolsProps {
 export function DevTools({ gameId, currentPlayerCount }: DevToolsProps) {
   const { showToast } = useToast();
   const [adding, setAdding] = useState(false);
+  const [unlocked, setUnlocked] = useState(process.env.NODE_ENV !== 'production');
   const [expanded, setExpanded] = useState(false);
+  const tapsRef = useRef<number[]>([]);
+
+  const handleSecretTap = useCallback(() => {
+    const now = Date.now();
+    tapsRef.current = tapsRef.current.filter((t) => now - t < TAP_WINDOW_MS);
+    tapsRef.current.push(now);
+
+    if (tapsRef.current.length >= TAP_THRESHOLD) {
+      setUnlocked(true);
+      setExpanded(true);
+      tapsRef.current = [];
+      showToast('Dev tools unlocked', 'info');
+    }
+  }, [showToast]);
 
   const addFillerPlayer = useCallback(async (count: number = 1) => {
     if (currentPlayerCount + count > 7) {
@@ -77,53 +95,65 @@ export function DevTools({ gameId, currentPlayerCount }: DevToolsProps) {
     addFillerPlayer(needed);
   }, [currentPlayerCount, addFillerPlayer, showToast]);
 
-  if (process.env.NODE_ENV === 'production') return null;
-
   return (
-    <div className="mt-4">
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="text-xs font-mono text-parchment-500/50 active:text-parchment-400 w-full text-center py-2"
-      >
-        {expanded ? '▾ Dev Tools' : '▸ Dev Tools'}
-      </button>
+    <>
+      {/* Hidden tap target in the bottom-right corner for production unlock */}
+      {!unlocked && (
+        <button
+          onClick={handleSecretTap}
+          className="fixed bottom-0 right-0 w-16 h-16 z-50 opacity-0"
+          aria-hidden="true"
+          tabIndex={-1}
+        />
+      )}
 
-      {expanded && (
-        <div className="mt-2 p-3 rounded-xl bg-surface-lowest ghost-border space-y-2">
-          <p className="text-xs font-mono text-parchment-500 mb-2">
-            Fill with test accounts ({currentPlayerCount}/7)
-          </p>
-          <div className="flex gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => addFillerPlayer(1)}
-              disabled={adding || currentPlayerCount >= 7}
-              className="flex-1 text-xs"
-            >
-              +1
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={fillToMinimum}
-              disabled={adding || currentPlayerCount >= 3}
-              className="flex-1 text-xs"
-            >
-              Fill to 3
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={fillToFull}
-              disabled={adding || currentPlayerCount >= 7}
-              className="flex-1 text-xs"
-            >
-              Fill to 7
-            </Button>
-          </div>
+      {unlocked && (
+        <div className="mt-4">
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="text-xs font-mono text-parchment-500/50 active:text-parchment-400 w-full text-center py-2"
+          >
+            {expanded ? '▾ Dev Tools' : '▸ Dev Tools'}
+          </button>
+
+          {expanded && (
+            <div className="mt-2 p-3 rounded-xl bg-surface-lowest ghost-border space-y-2">
+              <p className="text-xs font-mono text-parchment-500 mb-2">
+                Fill with test accounts ({currentPlayerCount}/7)
+              </p>
+              <div className="flex gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => addFillerPlayer(1)}
+                  disabled={adding || currentPlayerCount >= 7}
+                  className="flex-1 text-xs"
+                >
+                  +1
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={fillToMinimum}
+                  disabled={adding || currentPlayerCount >= 3}
+                  className="flex-1 text-xs"
+                >
+                  Fill to 3
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={fillToFull}
+                  disabled={adding || currentPlayerCount >= 7}
+                  className="flex-1 text-xs"
+                >
+                  Fill to 7
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 }
