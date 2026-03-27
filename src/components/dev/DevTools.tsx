@@ -97,7 +97,7 @@ export function DevTools({ gameId, currentPlayerCount }: DevToolsProps) {
 
   return (
     <>
-      {/* Hidden tap target in the bottom-right corner for production unlock */}
+      {/* Invisible tap target — bottom-right corner, 5 taps to unlock */}
       {!unlocked && (
         <button
           onClick={handleSecretTap}
@@ -108,19 +108,29 @@ export function DevTools({ gameId, currentPlayerCount }: DevToolsProps) {
       )}
 
       {unlocked && (
-        <div className="mt-4">
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="text-xs font-mono text-parchment-500/50 active:text-parchment-400 w-full text-center py-2"
-          >
-            {expanded ? '▾ Dev Tools' : '▸ Dev Tools'}
-          </button>
-
-          {expanded && (
-            <div className="mt-2 p-3 rounded-xl bg-surface-lowest ghost-border space-y-2">
-              <p className="text-xs font-mono text-parchment-500 mb-2">
-                Fill with test accounts ({currentPlayerCount}/7)
-              </p>
+        <div className="fixed bottom-4 right-4 z-50" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+          {!expanded ? (
+            <button
+              onClick={() => setExpanded(true)}
+              className="w-12 h-12 rounded-full bg-surface-lowest ghost-border shadow-ambient flex items-center justify-center text-parchment-500 active:text-parchment-300 text-lg"
+              aria-label="Open dev tools"
+            >
+              🛠
+            </button>
+          ) : (
+            <div className="p-4 rounded-2xl bg-surface-lowest/95 backdrop-blur-lg ghost-border shadow-ambient w-64 space-y-3">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-mono text-parchment-500">
+                  Dev Tools ({currentPlayerCount}/7)
+                </p>
+                <button
+                  onClick={() => setExpanded(false)}
+                  className="text-parchment-500 active:text-parchment-300 min-w-[32px] min-h-[32px] flex items-center justify-center text-sm"
+                  aria-label="Close dev tools"
+                >
+                  ✕
+                </button>
+              </div>
               <div className="flex gap-2">
                 <Button
                   variant="ghost"
