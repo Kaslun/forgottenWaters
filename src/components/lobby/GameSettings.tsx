@@ -22,17 +22,17 @@ function SegmentedControl({ label, value, onChange, options }: SegmentedControlP
   return (
     <div className="space-y-2">
       <label className="font-pirata text-sm text-gold-500">{label}</label>
-      <div className="flex rounded-xl bg-navy-900 border border-gold-700/20 p-1">
+      <div className="flex rounded-2xl bg-surface-lowest p-1 gap-1">
         {options.map((opt) => (
           <button
             key={opt.value}
             type="button"
             onClick={() => onChange(opt.value)}
             className={cn(
-              'flex-1 font-body text-sm py-2 rounded-lg transition-colors min-h-[48px]',
+              'flex-1 font-body text-sm py-2 rounded-xl transition-all min-h-[48px]',
               value === opt.value
-                ? 'bg-gold-600 text-navy-900 font-semibold'
-                : 'text-parchment-400 active:bg-navy-700'
+                ? 'bg-gold-gradient text-navy-900 font-semibold shadow-glow-gold'
+                : 'bg-surface-high text-parchment-400 hover:bg-teal-600/15 active:bg-teal-600/25 active:opacity-90'
             )}
           >
             {opt.label}

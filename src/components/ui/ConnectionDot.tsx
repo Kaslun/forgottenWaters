@@ -12,7 +12,7 @@ export function ConnectionDot({ status, className }: ConnectionDotProps) {
     <span
       className={cn(
         'inline-block w-2 h-2 rounded-full',
-        status === 'connected' && 'bg-green-400',
+        status === 'connected' && 'bg-teal-400 shadow-glow-teal',
         status === 'reconnecting' && 'bg-amber-400 animate-pulse',
         status === 'offline' && 'bg-red-400',
         className

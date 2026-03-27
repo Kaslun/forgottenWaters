@@ -29,21 +29,6 @@ export function JoinCodeDisplay({ joinCode, shipName }: JoinCodeDisplayProps) {
   }, [joinCode]);
 
   const handleShare = useCallback(async () => {
-    const shareData = {
-      title: `Join the ${shipName}!`,
-      text: `Board the ${shipName} in Forgotten Waters! Use code: ${joinCode}`,
-      url: shareUrl,
-    };
-
-    if (typeof navigator !== 'undefined' && navigator.share) {
-      try {
-        await navigator.share(shareData);
-        return;
-      } catch {
-        // User cancelled or share failed — fall through to clipboard
-      }
-    }
-
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
@@ -51,11 +36,11 @@ export function JoinCodeDisplay({ joinCode, shipName }: JoinCodeDisplayProps) {
     } catch {
       // Clipboard API not available
     }
-  }, [joinCode, shipName, shareUrl]);
+  }, [shareUrl]);
 
   return (
-    <Card variant="highlighted" className="text-center space-y-3">
-      <p className="font-pirata text-gold-500 text-sm">
+    <Card variant="glass" className="text-center space-y-4">
+      <p className="font-pirata text-parchment-400 text-sm tracking-wide">
         Aboard the&nbsp;
         <span className="text-gold-400">{shipName}</span>
       </p>
@@ -63,9 +48,10 @@ export function JoinCodeDisplay({ joinCode, shipName }: JoinCodeDisplayProps) {
       <button
         onClick={copyCode}
         className={cn(
-          'block w-full py-3 rounded-lg bg-navy-900 border border-gold-700/30',
-          'font-mono text-3xl tracking-[0.3em] text-parchment-100',
-          'active:bg-navy-700 transition-colors min-h-[48px]'
+          'block w-full py-4 rounded-2xl glass ghost-border',
+          'font-mono text-3xl tracking-[0.35em] text-parchment-100 font-semibold',
+          'active:opacity-90 transition-opacity min-h-[48px]',
+          'focus-visible:shadow-glow-gold'
         )}
         aria-label="Copy join code"
       >
@@ -73,16 +59,16 @@ export function JoinCodeDisplay({ joinCode, shipName }: JoinCodeDisplayProps) {
       </button>
 
       <p className="font-body text-xs text-parchment-400">
-        {copied ? 'Copied to clipboard!' : 'Tap the code to copy'}
+        {copied ? '✓ Copied to clipboard' : 'Tap the code to copy'}
       </p>
 
       <Button
-        variant="secondary"
+        variant="primary"
         size="md"
         className="w-full min-h-[48px]"
         onClick={handleShare}
       >
-        Share Invite Link
+        Copy Invite Link
       </Button>
     </Card>
   );

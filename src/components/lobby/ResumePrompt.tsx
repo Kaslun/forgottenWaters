@@ -21,7 +21,7 @@ const STATUS_LABELS: Record<string, string> = {
 
 export function ResumePrompt({ game, onResume, onClose }: ResumePromptProps) {
   return (
-    <Card variant="highlighted" className="space-y-4 text-center">
+    <Card variant="glass" className="space-y-4 text-center shadow-ambient">
       <h2 className="font-pirata text-xl text-gold-400">
         Unfinished Voyage
       </h2>
@@ -30,11 +30,11 @@ export function ResumePrompt({ game, onResume, onClose }: ResumePromptProps) {
         <p className="font-pirata text-lg text-parchment-100">
           {game.ship_name}
         </p>
-        <div className="flex items-center justify-center gap-2">
-          <Badge variant="warning">
+        <div className="flex items-center justify-center gap-2 flex-wrap">
+          <Badge variant="warning" className="font-mono">
             {STATUS_LABELS[game.status] ?? game.status}
           </Badge>
-          <span className="font-body text-xs text-parchment-400">
+          <span className="font-mono text-xs text-parchment-400 tracking-wide">
             Code: {game.join_code}
           </span>
         </div>
@@ -48,7 +48,7 @@ export function ResumePrompt({ game, onResume, onClose }: ResumePromptProps) {
         <Button
           variant="ghost"
           size="md"
-          className="flex-1 min-h-[48px]"
+          className="flex-1 min-h-[48px] text-teal-400 hover:text-teal-300"
           onClick={onClose}
         >
           Leave It
@@ -56,7 +56,7 @@ export function ResumePrompt({ game, onResume, onClose }: ResumePromptProps) {
         <Button
           variant="primary"
           size="md"
-          className="flex-1 min-h-[48px]"
+          className="flex-1 min-h-[48px] bg-gold-gradient shadow-glow-gold"
           onClick={onResume}
         >
           Resume Game

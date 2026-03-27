@@ -59,17 +59,17 @@ export function SkillChoiceModal({
               disabled={disabled}
               onClick={() => onChoose(skill)}
               className={cn(
-                'flex items-center justify-between px-4 py-3 rounded-xl border font-body text-left transition-colors',
-                'min-h-[48px]',
+                'flex items-center justify-between px-4 py-3 rounded-2xl font-body text-left transition-colors',
+                'min-h-[48px] ghost-border',
                 disabled
-                  ? 'border-navy-700/30 text-parchment-500/40 cursor-not-allowed'
-                  : 'border-gold-700/30 text-parchment-200 active:bg-navy-700/50'
+                  ? 'text-parchment-500/40 cursor-not-allowed opacity-60'
+                  : 'text-parchment-100 active:bg-navy-700/50'
               )}
             >
               <div className="flex items-center gap-2">
                 <span className="capitalize text-sm">{skill}</span>
                 {nextIsStar && !disabled && (
-                  <span className="text-gold-400 text-xs">★</span>
+                  <span className="text-teal-400 text-xs">★</span>
                 )}
               </div>
               <div className="flex items-center gap-2">

@@ -4,17 +4,18 @@ import { cn } from '@/lib/utils';
 import type { HTMLAttributes } from 'react';
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'highlighted' | 'warning';
+  variant?: 'default' | 'highlighted' | 'warning' | 'glass';
 }
 
 export function Card({ variant = 'default', className, children, ...props }: CardProps) {
   return (
     <div
       className={cn(
-        'rounded-xl p-4',
-        variant === 'default' && 'bg-navy-800 border border-gold-700/20',
-        variant === 'highlighted' && 'bg-navy-800 border border-gold-600/40',
-        variant === 'warning' && 'bg-amber-900/20 border border-amber-500/40',
+        'rounded-2xl p-4 gold-corner-accent',
+        variant === 'default' && 'bg-surface shadow-ambient',
+        variant === 'highlighted' && 'bg-surface shadow-ambient shadow-glow-gold',
+        variant === 'warning' && 'bg-amber-900/15 ghost-border',
+        variant === 'glass' && 'glass shadow-ambient',
         className
       )}
       {...props}

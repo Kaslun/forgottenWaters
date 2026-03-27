@@ -61,7 +61,7 @@ export function SkillRow({ skillName, grid, level, onSkillUp, onSkillDown }: Ski
         <span className="font-body text-sm text-parchment-200 capitalize">
           {skillName}
         </span>
-        <span className="ml-1 text-xs text-gold-500 font-body">
+        <span className="ml-1 text-xs text-gold-500 font-mono">
           {getModifier(level)}
         </span>
       </div>

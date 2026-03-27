@@ -57,7 +57,7 @@ export function ConstellationMap({
               y1={starA.y}
               x2={starB.x}
               y2={starB.y}
-              className="stroke-parchment-500/30"
+              className="stroke-parchment-500/20"
               strokeWidth={0.5}
             />
           );
@@ -89,7 +89,7 @@ export function ConstellationMap({
                   cx={star.x}
                   cy={star.y}
                   r={4}
-                  className="fill-gold-400 stroke-gold-500"
+                  className="fill-gold-400 stroke-gold-500 [filter:drop-shadow(0_0_14px_rgba(240,165,0,0.45))]"
                   strokeWidth={0.8}
                 />
               ) : isFilled ? (
@@ -97,14 +97,14 @@ export function ConstellationMap({
                   cx={star.x}
                   cy={star.y}
                   r={3.5}
-                  className="fill-gold-500"
+                  className="fill-gold-400 [filter:drop-shadow(0_0_8px_rgba(240,165,0,0.35))]"
                 />
               ) : isEligible ? (
                 <circle
                   cx={star.x}
                   cy={star.y}
                   r={3}
-                  className="fill-none stroke-gold-400 animate-pulse-glow"
+                  className="fill-none stroke-teal-400 animate-pulse [filter:drop-shadow(0_0_4px_rgba(68,226,205,0.35))]"
                   strokeWidth={0.8}
                 />
               ) : (
@@ -112,7 +112,7 @@ export function ConstellationMap({
                   cx={star.x}
                   cy={star.y}
                   r={3}
-                  className="fill-none stroke-parchment-500/30"
+                  className="fill-none stroke-parchment-500/20"
                   strokeWidth={0.5}
                 />
               )}
@@ -123,11 +123,7 @@ export function ConstellationMap({
                   x={star.x}
                   y={star.y + 1.2}
                   textAnchor="middle"
-                  className={
-                    isFilled
-                      ? 'fill-navy-900 text-[4px] font-bold select-none'
-                      : 'fill-gold-500/60 text-[4px] font-bold select-none'
-                  }
+                  className="fill-red-500 font-mono text-[4px] font-bold select-none [filter:drop-shadow(0_0_3px_rgba(239,68,68,0.65))]"
                 >
                   !
                 </text>

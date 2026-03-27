@@ -83,7 +83,7 @@ export function ErrorState({ icon, title, message, action }: ErrorStateProps) {
 export function EmptyState({ icon, message, hint }: { icon: string; message: string; hint: string }) {
   return (
     <div className="flex flex-col items-center justify-center p-8 text-center">
-      <span className="text-4xl mb-3">{icon}</span>
+      <span className="text-4xl mb-3 opacity-60">{icon}</span>
       <p className="text-parchment-300 text-sm mb-1">{message}</p>
       <p className="text-parchment-500 text-xs">{hint}</p>
     </div>

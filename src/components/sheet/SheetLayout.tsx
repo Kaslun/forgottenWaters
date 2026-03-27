@@ -33,8 +33,8 @@ export function SheetLayout({
 
   if (isLandscape) {
     return (
-      <div className="flex flex-row h-[100dvh] bg-navy-900">
-        <nav className="w-12 flex-shrink-0 flex flex-col items-center gap-1 py-3 bg-navy-800 border-r border-gold-700/20">
+      <div className="flex flex-row h-[100dvh] bg-surface">
+        <nav className="w-12 flex-shrink-0 flex flex-col items-center gap-1 py-3 bg-surface-low ghost-border">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -42,8 +42,8 @@ export function SheetLayout({
               className={cn(
                 'w-10 h-10 flex items-center justify-center rounded-lg text-lg transition-colors min-w-[48px] min-h-[48px]',
                 activeTab === tab.id
-                  ? 'bg-gold-600/20 text-gold-400'
-                  : 'text-parchment-500 active:text-parchment-300 active:bg-navy-700/50'
+                  ? 'bg-teal-600/15 text-teal-400 shadow-glow-teal'
+                  : 'text-parchment-400 active:text-parchment-100 active:bg-surface-high/50'
               )}
               aria-label={tab.label}
             >
@@ -53,11 +53,11 @@ export function SheetLayout({
         </nav>
 
         <div className="flex-1 flex flex-col min-w-0">
-          <header className="sticky top-0 z-10 flex items-center gap-2 px-4 py-2 bg-navy-800/90 backdrop-blur-sm border-b border-gold-700/20">
+          <header className="sticky top-0 z-10 flex items-center gap-2 px-4 py-2 glass backdrop-blur-md">
             <h1 className="font-pirata text-gold-400 text-base truncate">
               {pirateName}
             </h1>
-            <span className="text-parchment-500 text-sm truncate">
+            <span className="font-body text-parchment-400 text-sm truncate">
               {characterTitle}
             </span>
             <ConnectionDot status={connectionStatus} className="ml-auto flex-shrink-0" />
@@ -75,12 +75,12 @@ export function SheetLayout({
   }
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-navy-900">
-      <header className="sticky top-0 z-10 flex items-center gap-2 px-4 py-2 bg-navy-800/90 backdrop-blur-sm border-b border-gold-700/20">
+    <div className="flex flex-col h-[100dvh] bg-surface">
+      <header className="sticky top-0 z-10 flex items-center gap-2 px-4 py-2 glass backdrop-blur-md">
         <h1 className="font-pirata text-gold-400 text-base truncate">
           {pirateName}
         </h1>
-        <span className="text-parchment-500 text-sm truncate">
+        <span className="font-body text-parchment-400 text-sm truncate">
           {characterTitle}
         </span>
         <ConnectionDot status={connectionStatus} className="ml-auto flex-shrink-0" />
@@ -93,7 +93,7 @@ export function SheetLayout({
         {children}
       </main>
 
-      <nav className="flex-shrink-0 h-14 flex items-center justify-around bg-navy-800 border-t border-gold-700/20 pb-[env(safe-area-inset-bottom)]">
+      <nav className="flex-shrink-0 h-14 flex items-center justify-around bg-surface-low ghost-border pb-[env(safe-area-inset-bottom)]">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -101,8 +101,8 @@ export function SheetLayout({
             className={cn(
               'flex flex-col items-center justify-center gap-0.5 min-w-[48px] min-h-[48px] rounded-lg transition-colors',
               activeTab === tab.id
-                ? 'text-gold-400'
-                : 'text-parchment-500 active:text-parchment-300'
+                ? 'text-teal-400 shadow-glow-teal'
+                : 'text-parchment-400 active:text-parchment-100'
             )}
             aria-label={tab.label}
           >

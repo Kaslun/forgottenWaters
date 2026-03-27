@@ -3,23 +3,24 @@
 import { cn } from '@/lib/utils';
 
 interface BadgeProps {
-  variant?: 'default' | 'success' | 'warning' | 'error';
+  variant?: 'default' | 'success' | 'warning' | 'error' | 'teal';
   children: React.ReactNode;
   className?: string;
 }
 
 const badgeVariants = {
-  default: 'bg-navy-700 text-parchment-300',
-  success: 'bg-green-900/30 text-green-400',
-  warning: 'bg-amber-900/30 text-amber-300',
-  error: 'bg-red-900/30 text-red-400',
+  default: 'bg-surface-highest text-parchment-300',
+  success: 'bg-green-900/20 text-green-400',
+  warning: 'bg-amber-900/20 text-amber-300',
+  error: 'bg-red-900/20 text-red-400',
+  teal: 'bg-teal-600/15 text-teal-400',
 };
 
 export function Badge({ variant = 'default', className, children }: BadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold',
+        'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-mono font-medium',
         badgeVariants[variant],
         className
       )}

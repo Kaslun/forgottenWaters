@@ -17,7 +17,7 @@ export function IdentityPicker({
   onClose,
 }: IdentityPickerProps) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 glass-heavy rounded-2xl p-4 shadow-ambient ghost-border">
       <div className="text-center space-y-1">
         <h2 className="font-pirata text-xl text-gold-400">
           Who Goes There?
@@ -41,13 +41,14 @@ export function IdentityPicker({
             type="button"
             onClick={() => onClaim(player)}
             className={cn(
-              'w-full text-left rounded-xl p-4',
-              'bg-navy-800 border border-gold-700/20',
-              'active:bg-navy-700 active:border-gold-600/40',
-              'transition-colors min-h-[48px]'
+              'w-full text-left rounded-2xl p-4',
+              'bg-surface-high ghost-border',
+              'text-parchment-100 hover:text-teal-400 hover:bg-teal-600/15 hover:shadow-glow-teal',
+              'active:bg-teal-600/25 focus-visible:outline-none focus-visible:shadow-glow-teal',
+              'transition-all min-h-[48px]'
             )}
           >
-            <span className="font-body text-parchment-200 block">
+            <span className="font-body block">
               {player.display_name}
             </span>
             {(player.pirate_name || player.character_type) && (
@@ -70,7 +71,7 @@ export function IdentityPicker({
       <Button
         variant="ghost"
         size="md"
-        className="w-full min-h-[48px]"
+        className="w-full min-h-[48px] text-teal-400 hover:text-teal-300"
         onClick={onClose}
       >
         Cancel

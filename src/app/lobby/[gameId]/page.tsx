@@ -13,6 +13,7 @@ import { JoinCodeDisplay } from '@/components/lobby/JoinCodeDisplay';
 import { PlayerList } from '@/components/lobby/PlayerList';
 import { GameSettings } from '@/components/lobby/GameSettings';
 import { ResumePrompt } from '@/components/lobby/ResumePrompt';
+import { DevTools } from '@/components/dev/DevTools';
 import type { SelectionMode } from '@/types/game';
 
 const MIN_PLAYERS = 3;
@@ -129,7 +130,7 @@ export default function LobbyPage({
 
   return (
     <div className="min-h-[100dvh] bg-navy-900 flex flex-col">
-      <header className="px-4 pt-[env(safe-area-inset-top,16px)] pb-3 bg-navy-800 border-b border-gold-700/20">
+      <header className="px-4 pt-[env(safe-area-inset-top,16px)] pb-3 bg-surface-low/80 backdrop-blur-md">
         <h1 className="font-pirata text-2xl text-gold-400 text-center">
           Gathering the Crew
         </h1>
@@ -189,6 +190,8 @@ export default function LobbyPage({
             </p>
           </div>
         )}
+
+        <DevTools gameId={gameId} currentPlayerCount={players.length} />
       </main>
     </div>
   );

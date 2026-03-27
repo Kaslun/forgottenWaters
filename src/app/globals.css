@@ -7,15 +7,65 @@
   --sab: env(safe-area-inset-bottom);
   --sal: env(safe-area-inset-left);
   --sar: env(safe-area-inset-right);
-  --gold-400: #e8c55a;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   overflow: hidden;
 }
 
-.scroll-container {
-  overscroll-behavior-y: contain;
-  -webkit-overflow-scrolling: touch;
+@layer base {
+  ::selection {
+    background-color: rgba(240, 165, 0, 0.3);
+    color: #f1e1be;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(51, 51, 72, 0.6) transparent;
+  }
+}
+
+@layer utilities {
+  .scroll-container {
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .glass {
+    background: rgba(30, 30, 50, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .glass-heavy {
+    background: rgba(26, 26, 46, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .gold-gradient {
+    background: linear-gradient(135deg, #ffc56c, #f0a500);
+  }
+
+  .ghost-border {
+    box-shadow: inset 0 0 0 1px rgba(176, 160, 120, 0.15);
+  }
+
+  .gold-corner-accent {
+    position: relative;
+  }
+  .gold-corner-accent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-top: 2px solid rgba(240, 165, 0, 0.2);
+    border-left: 2px solid rgba(240, 165, 0, 0.2);
+    border-top-left-radius: inherit;
+    pointer-events: none;
+  }
 }

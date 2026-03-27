@@ -24,10 +24,10 @@ export function useToast() {
 }
 
 const toastStyles: Record<ToastType, string> = {
-  info: 'bg-navy-700 border-gold-700/30 text-parchment-200',
-  success: 'bg-gold-600/20 border-gold-600/40 text-gold-400',
-  warning: 'bg-amber-600/20 border-amber-600/40 text-amber-300',
-  error: 'bg-red-900/30 border-red-800/30 text-red-400',
+  info: 'glass ghost-border text-parchment-100',
+  success: 'bg-gold-500/15 text-gold-400 shadow-glow-gold',
+  warning: 'bg-amber-600/15 text-amber-300',
+  error: 'bg-red-900/20 text-red-400',
 };
 
 export function ToastProvider({ children }: { children: React.ReactNode }) {
@@ -64,8 +64,8 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             key={toast.id}
             onClick={() => dismissToast(toast.id)}
             className={cn(
-              'pointer-events-auto px-4 py-2.5 rounded-xl border text-sm font-body shadow-lg',
-              'max-w-sm w-full cursor-pointer animate-[fadeIn_0.2s_ease-out]',
+              'pointer-events-auto px-4 py-2.5 rounded-xl text-sm font-body shadow-ambient',
+              'max-w-sm w-full cursor-pointer animate-fadeIn backdrop-blur-md',
               toastStyles[toast.type]
             )}
           >

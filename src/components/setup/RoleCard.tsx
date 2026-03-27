@@ -18,7 +18,10 @@ export function RoleCard({ role, isAssigned, assignedTo, isMine, onClaim }: Role
   return (
     <Card
       variant={isMine ? 'highlighted' : 'default'}
-      className={cn('flex items-center gap-3', isAssigned && !isMine && 'opacity-70')}
+      className={cn(
+        'flex items-center gap-3 bg-surface ghost-border shadow-ambient',
+        isAssigned && !isMine && 'opacity-70'
+      )}
     >
       <span className="text-2xl flex-shrink-0 w-10 h-10 flex items-center justify-center" role="img" aria-label={role.name}>
         {role.icon}
@@ -36,7 +39,12 @@ export function RoleCard({ role, isAssigned, assignedTo, isMine, onClaim }: Role
       </div>
 
       {!isAssigned && (
-        <Button variant="secondary" size="sm" onClick={onClaim} className="flex-shrink-0">
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={onClaim}
+          className="flex-shrink-0 text-teal-400"
+        >
           Claim
         </Button>
       )}

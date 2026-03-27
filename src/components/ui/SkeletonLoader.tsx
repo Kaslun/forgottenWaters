@@ -10,7 +10,8 @@ export function Skeleton({ className }: SkeletonProps) {
   return (
     <div
       className={cn(
-        'animate-pulse rounded-lg bg-navy-700/50',
+        'rounded-lg bg-surface-high/50 animate-shimmer',
+        'bg-gradient-to-r from-surface-high/30 via-surface-highest/40 to-surface-high/30 bg-[length:200%_100%]',
         className
       )}
     />
@@ -55,10 +56,10 @@ export function SheetSkeleton() {
 export function LoadingScreen({ message }: { message?: string }) {
   return (
     <div className="flex flex-col items-center justify-center h-[100dvh] bg-navy-900">
-      <div className="text-gold-400 font-pirata text-2xl mb-4 animate-pulse">
+      <div className="text-gold-400 text-4xl mb-4 animate-pulse">
         ⚓
       </div>
-      <p className="text-parchment-400 text-sm">
+      <p className="text-parchment-400 text-sm font-mono">
         {message || 'Loading...'}
       </p>
     </div>

@@ -107,44 +107,47 @@ export default function HostPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[100dvh] bg-navy-900 px-6 py-10">
-      <div className="w-full max-w-sm space-y-6">
-        <button
-          type="button"
-          onClick={() => router.push('/')}
-          className="text-parchment-400 text-sm font-body hover:text-parchment-200 transition-colors"
-        >
-          ← Back
-        </button>
+    <div className="relative flex flex-col items-center justify-center min-h-[100dvh] overflow-hidden bg-navy-900 px-6 py-10">
+      <div className="absolute top-1/4 left-1/2 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-gold-500/[0.03] blur-[100px] pointer-events-none" />
+      <div className="relative w-full max-w-sm space-y-6">
+        <header className="space-y-3 rounded-2xl px-4 py-4 backdrop-blur-md bg-surface-low/80">
+          <button
+            type="button"
+            onClick={() => router.push('/')}
+            className="text-sm font-body text-teal-400 transition-colors hover:text-teal-300"
+          >
+            ← Back
+          </button>
 
-        <h1 className="font-pirata text-3xl text-gold-400 text-center">
-          Host New Game
-        </h1>
+          <h1 className="text-center font-pirata text-3xl text-gold-400">
+            Host New Game
+          </h1>
+        </header>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <Card>
             <div className="space-y-4">
               <div className="space-y-1.5">
-                <label className="font-body text-sm text-parchment-300">Ship Name</label>
+                <label className="font-body text-sm text-parchment-400">Ship Name</label>
                 <input
                   type="text"
                   value={shipName}
                   onChange={(e) => setShipName(e.target.value)}
                   placeholder="The Black Pearl"
                   maxLength={40}
-                  className="w-full rounded-lg bg-navy-700 border border-gold-700/20 px-3 py-2.5 font-body text-parchment-100 placeholder:text-parchment-500 focus:outline-none focus:border-gold-600/60 min-h-[48px]"
+                  className="ghost-border w-full min-h-[48px] rounded-lg bg-surface-lowest px-3 py-2.5 font-body text-parchment-100 placeholder:text-parchment-400 focus:outline-none focus:ring-2 focus:ring-gold-500/40"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="font-body text-sm text-parchment-300">Your Display Name</label>
+                <label className="font-body text-sm text-parchment-400">Your Display Name</label>
                 <input
                   type="text"
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   placeholder="Captain Hook"
                   maxLength={30}
-                  className="w-full rounded-lg bg-navy-700 border border-gold-700/20 px-3 py-2.5 font-body text-parchment-100 placeholder:text-parchment-500 focus:outline-none focus:border-gold-600/60 min-h-[48px]"
+                  className="ghost-border w-full min-h-[48px] rounded-lg bg-surface-lowest px-3 py-2.5 font-body text-parchment-100 placeholder:text-parchment-400 focus:outline-none focus:ring-2 focus:ring-gold-500/40"
                 />
               </div>
             </div>
@@ -191,15 +194,15 @@ function ModeToggle({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="font-body text-sm text-parchment-300">{label}</label>
-      <div className="flex rounded-lg overflow-hidden border border-gold-700/20">
+      <label className="font-body text-sm text-parchment-400">{label}</label>
+      <div className="ghost-border flex overflow-hidden rounded-lg bg-surface-low">
         <button
           type="button"
           onClick={() => onChange('choice')}
-          className={`flex-1 py-2.5 text-sm font-body transition-colors min-h-[48px] ${
+          className={`min-h-[48px] flex-1 py-2.5 text-sm font-body transition-colors ${
             value === 'choice'
-              ? 'bg-gold-600 text-navy-900 font-semibold'
-              : 'bg-navy-700 text-parchment-400'
+              ? 'bg-gold-gradient font-semibold text-navy-900'
+              : 'bg-surface text-parchment-400'
           }`}
         >
           Player Choice
@@ -207,10 +210,10 @@ function ModeToggle({
         <button
           type="button"
           onClick={() => onChange('random')}
-          className={`flex-1 py-2.5 text-sm font-body transition-colors min-h-[48px] ${
+          className={`min-h-[48px] flex-1 py-2.5 text-sm font-body transition-colors ${
             value === 'random'
-              ? 'bg-gold-600 text-navy-900 font-semibold'
-              : 'bg-navy-700 text-parchment-400'
+              ? 'bg-gold-gradient font-semibold text-navy-900'
+              : 'bg-surface text-parchment-400'
           }`}
         >
           Random

@@ -1,19 +1,26 @@
 import type { Metadata, Viewport } from 'next';
-import { Pirata_One, Crimson_Text } from 'next/font/google';
+import { Newsreader, Noto_Serif, Space_Grotesk } from 'next/font/google';
 import { ToastProvider } from '@/components/ui/ToastProvider';
 import './globals.css';
 
-const pirata = Pirata_One({
-  weight: '400',
+const displayFont = Newsreader({
+  weight: ['400', '600'],
   subsets: ['latin'],
-  variable: '--font-pirata',
+  variable: '--font-display',
   display: 'swap',
 });
 
-const crimson = Crimson_Text({
+const bodyFont = Noto_Serif({
   weight: ['400', '600', '700'],
   subsets: ['latin'],
   variable: '--font-body',
+  display: 'swap',
+});
+
+const dataFont = Space_Grotesk({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+  variable: '--font-data',
   display: 'swap',
 });
 
@@ -34,7 +41,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: 'cover',
-  themeColor: '#1a2744',
+  themeColor: '#111125',
 };
 
 export default function RootLayout({
@@ -43,8 +50,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${pirata.variable} ${crimson.variable}`}>
-      <body className="font-body bg-navy-900 text-parchment-200">
+    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} ${dataFont.variable}`}>
+      <body className="font-body bg-navy-900 text-parchment-100 antialiased">
         <ToastProvider>
           {children}
         </ToastProvider>

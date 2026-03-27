@@ -27,15 +27,15 @@ export function Modal({ onClose, children, title }: ModalProps) {
     <div
       ref={overlayRef}
       onClick={handleOverlayClick}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 animate-fadeIn"
     >
-      <div className="bg-navy-800 border border-gold-700/30 rounded-2xl p-6 w-full max-w-md max-h-[80vh] overflow-y-auto">
+      <div className="glass-heavy rounded-2xl p-6 w-full max-w-md max-h-[80vh] overflow-y-auto shadow-ambient gold-corner-accent">
         {title && (
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-gold-400 font-pirata text-lg">{title}</h3>
             <button
               onClick={onClose}
-              className="text-parchment-500 active:text-parchment-300 min-w-[48px] min-h-[48px] flex items-center justify-center"
+              className="text-parchment-500 active:text-parchment-300 min-w-[48px] min-h-[48px] flex items-center justify-center rounded-lg active:bg-navy-700/30"
               aria-label="Close"
             >
               ✕

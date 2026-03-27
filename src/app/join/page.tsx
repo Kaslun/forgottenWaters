@@ -229,19 +229,20 @@ function JoinContent() {
   }
 
   return (
-    <div className="min-h-[100dvh] bg-navy-900 flex flex-col items-center justify-center px-6 py-10">
-      <div className="w-full max-w-md space-y-8">
-        <div className="text-center">
+    <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-navy-900 px-6 py-10">
+      <div className="absolute top-1/4 left-1/2 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-gold-500/[0.03] blur-[100px] pointer-events-none" />
+      <div className="relative w-full max-w-md space-y-8">
+        <header className="rounded-2xl px-4 py-5 text-center backdrop-blur-md bg-surface-low/80">
           <h1 className="font-pirata text-3xl text-gold-400">Join a Crew</h1>
-          <p className="font-body text-sm text-parchment-400 mt-1">
+          <p className="mt-1 font-body text-sm text-parchment-400">
             Enter the code from yer captain
           </p>
-        </div>
+        </header>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Join Code */}
           <div className="space-y-1.5">
-            <label htmlFor="joinCode" className="block font-body text-sm text-parchment-300">
+            <label htmlFor="joinCode" className="block font-body text-sm text-parchment-400">
               Join Code
             </label>
             <input
@@ -252,13 +253,13 @@ function JoinContent() {
               placeholder="SHIP42"
               autoCapitalize="characters"
               maxLength={10}
-              className="w-full rounded-xl bg-navy-800 border border-gold-700/30 text-parchment-100 font-mono text-2xl text-center tracking-widest px-4 py-4 placeholder:text-parchment-500 placeholder:text-lg focus:outline-none focus:border-gold-600/60 min-h-[48px]"
+              className="ghost-border w-full min-h-[48px] rounded-2xl bg-surface-lowest px-4 py-4 text-center font-mono text-2xl tracking-widest text-parchment-100 placeholder:text-lg placeholder:text-parchment-400 focus:outline-none focus:ring-2 focus:ring-gold-500/40"
             />
           </div>
 
           {/* Display Name */}
           <div className="space-y-1.5">
-            <label htmlFor="displayName" className="block font-body text-sm text-parchment-300">
+            <label htmlFor="displayName" className="block font-body text-sm text-parchment-400">
               Your Display Name
             </label>
             <input
@@ -267,7 +268,7 @@ function JoinContent() {
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
               placeholder="Barnacle Bill"
-              className="w-full rounded-xl bg-navy-800 border border-gold-700/30 text-parchment-100 font-body px-4 py-3 text-base placeholder:text-parchment-500 focus:outline-none focus:border-gold-600/60 min-h-[48px]"
+              className="ghost-border w-full min-h-[48px] rounded-2xl bg-surface-lowest px-4 py-3 font-body text-base text-parchment-100 placeholder:text-parchment-400 focus:outline-none focus:ring-2 focus:ring-gold-500/40"
             />
           </div>
 
@@ -285,7 +286,7 @@ function JoinContent() {
         <button
           type="button"
           onClick={() => router.back()}
-          className="block mx-auto font-body text-sm text-parchment-500 active:text-parchment-300"
+          className="mx-auto block font-body text-sm text-teal-400 transition-colors hover:text-teal-300 active:text-teal-500"
         >
           ← Back
         </button>

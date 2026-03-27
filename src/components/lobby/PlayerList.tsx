@@ -27,13 +27,13 @@ export function PlayerList({
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <h3 className="font-pirata text-lg text-gold-500">The Crew</h3>
-        <span className="font-body text-sm text-parchment-400">
+        <span className="font-mono text-sm text-parchment-100 tabular-nums">
           {players.length}/{MAX_PLAYERS} Pirates
         </span>
       </div>
 
-      <ul className="space-y-2">
-        {players.map((player) => {
+      <ul className="flex flex-col gap-2">
+        {players.map((player, index) => {
           const isCurrentPlayer = player.id === currentPlayerId;
           const canRemove =
             isHost &&
@@ -45,19 +45,26 @@ export function PlayerList({
             <Card
               key={player.id}
               variant={isCurrentPlayer ? 'highlighted' : 'default'}
-              className="flex items-center gap-3 py-3"
+              className={cn(
+                'flex items-center gap-3 py-3 ghost-border',
+                !isCurrentPlayer &&
+                  index % 2 === 1 &&
+                  'bg-surface-low shadow-ambient'
+              )}
             >
               <span
                 className={cn(
                   'inline-block w-2.5 h-2.5 rounded-full shrink-0',
-                  player.connected ? 'bg-green-400' : 'bg-red-400'
+                  player.connected
+                    ? 'bg-teal-400 shadow-glow-teal'
+                    : 'bg-surface-highest'
                 )}
                 aria-label={player.connected ? 'Online' : 'Offline'}
               />
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="font-body text-parchment-200 truncate">
+                  <span className="font-body text-parchment-100 truncate">
                     {player.display_name}
                   </span>
                   {player.is_host && (

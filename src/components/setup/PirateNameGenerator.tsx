@@ -51,9 +51,8 @@ export function PirateNameGenerator({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-2xl border-2 border-gold-600/35 bg-gradient-to-b from-navy-700 to-navy-900',
-        'p-6 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.55)]',
-        'ring-1 ring-inset ring-parchment-500/10'
+        'relative overflow-hidden rounded-2xl glass shadow-ambient gold-corner-accent',
+        'p-6'
       )}
     >
       <div
@@ -88,20 +87,20 @@ export function PirateNameGenerator({
                 spellCheck={false}
                 placeholder="Captain…"
                 className={cn(
-                  'w-full rounded-xl border-2 border-gold-600/50 bg-parchment-100/95 px-4 py-3',
-                  'font-pirata text-2xl text-navy-900 placeholder:text-parchment-500/70',
-                  'shadow-inner shadow-navy-900/20 outline-none transition-[border-color,box-shadow]',
-                  'focus:border-gold-400 focus:ring-2 focus:ring-gold-400/40'
+                  'w-full rounded-xl ghost-border bg-surface-high px-4 py-3',
+                  'font-pirata text-2xl text-parchment-100 placeholder:text-parchment-400/80',
+                  'shadow-inner shadow-ambient outline-none transition-[box-shadow]',
+                  'focus:ring-2 focus:ring-teal-400/35 focus:ring-offset-0 focus:ring-offset-transparent'
                 )}
               />
-              <p className="font-body text-xs text-parchment-500">
+              <p className="font-body text-xs text-parchment-400">
                 {customValue.length}/50
               </p>
             </div>
           ) : (
             <p
               key={randomName}
-              className="mt-2 animate-fadeIn font-pirata text-2xl leading-snug text-gold-400 drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]"
+              className="mt-2 animate-fadeIn font-pirata text-2xl leading-snug text-parchment-100 drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]"
             >
               {randomName || '\u00a0'}
             </p>
@@ -112,7 +111,7 @@ export function PirateNameGenerator({
           <Button
             type="button"
             variant="secondary"
-            className="w-full border-gold-600/40 sm:w-auto"
+            className="w-full sm:w-auto"
             onClick={handleGenerateNew}
           >
             Generate New Name
@@ -120,7 +119,7 @@ export function PirateNameGenerator({
           <Button
             type="button"
             variant="primary"
-            className="w-full shadow-md shadow-gold-700/20 sm:w-auto"
+            className="w-full bg-gold-gradient shadow-glow-gold sm:w-auto"
             disabled={!canAccept}
             onClick={handleAccept}
           >
